@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: rabbitmq-springboot
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: root
+    password: 123456
+
+#   能者多劳模式
+#    listener:
+#      simple:
+#        prefetch: 2
