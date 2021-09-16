@@ -12,9 +12,6 @@ class RabbitmqSpringbootApplicationTests {
     @Autowired
     public  RabbitTemplate rabbitTemplate;
 
-    public static void main(String[] args) {
-        rabbitTemplate.convertAndSend("hello","hello world");
-    }
 
     @Test
     void contextLoads() {
