@@ -17,6 +17,14 @@
         <module>SpringCloud</module>
     </modules>-->
 
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.25</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
 
     <!--    &lt;!&ndash; 统一管理jar包版本 &ndash;&gt;

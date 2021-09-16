@@ -1,3 +1,5 @@
+package helloqueue;
+
 import com.rabbitmq.client.*;
 import utils.ConnectionUtils;
 
@@ -39,6 +41,7 @@ public class Receiver {
             }
         };
 
+        channel.queueDeclare().getQueue();
         // 监听队列
         channel.basicConsume(QUEUE_NAME,defaultConsumer);
 

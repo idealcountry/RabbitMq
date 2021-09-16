@@ -1,3 +1,5 @@
+package helloqueue;
+
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import org.junit.Test;
