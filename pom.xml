@@ -9,6 +9,7 @@
     <version>1.0.0-SNAPSHOT</version>
     <modules>
         <module>rabbitmq_pr1</module>
+        <module>rabbitmq_springboot-book</module>
     </modules>
     <packaging>pom</packaging><!-- 这里添加，注意不是jar或war -->
 

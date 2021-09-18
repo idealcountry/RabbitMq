@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
  * @description
  */
 @Component
+
 public class WorkConsumer {
 
 
