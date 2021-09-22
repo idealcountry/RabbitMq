@@ -3,7 +3,9 @@ package com.spacetim; /**
  */
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.spacetim.entity.Person;
 import com.spacetim.rabbitmq_basic.BasicPublisher;
+import com.spacetim.testRabbitmq.BasicPublisherTest;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -28,12 +30,27 @@ public class RabbitmqTest {
     @Autowired
     private BasicPublisher basicPublisher;
 
+    @Autowired
+    private BasicPublisherTest basicPublisherTest;
+
     @Test
     public void test1() throws Exception{
         String msg="hello world!~~~";
 //        String s = objectMapper.writeValueAsString(msg);
         basicPublisher.sendMsg(msg);
     }
+
+    @Test
+    public void test2(){
+        basicPublisherTest.sendMsg("~~~~~~~成功");
+    }
+
+    @Test
+    public void test3(){
+        basicPublisher.sendObjectMsg(new Person(18,"spacetim","father"));
+    }
+
+
 
 }
 

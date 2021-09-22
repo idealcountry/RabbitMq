@@ -1,9 +1,8 @@
-package com.spacetim.rabbitmq_basic;/**
+package com.spacetim.testRabbitmq;/**
  * Created by Administrator on 2019/3/30.
  */
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.spacetim.entity.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -17,9 +16,9 @@ import org.springframework.stereotype.Component;
  * @Date: 2019/3/30 23:15
  **/
 @Component
-public class BasicConsumer {
+public class BasicConsumerTest {
 
-    private static final Logger log= LoggerFactory.getLogger(BasicConsumer.class);
+    private static final Logger log= LoggerFactory.getLogger(BasicConsumerTest.class);
 
     @Autowired
     public ObjectMapper objectMapper;
@@ -28,12 +27,10 @@ public class BasicConsumer {
      * 监听并消费队列中的消息-在这里采用单一容器工厂实例即可
      */
     @RabbitListener(queues = "${mq.basic.info.queue.name}",containerFactory = "singleListenerContainer")
-    public void consumeMsg( String msg){
+    public void consumeMsg(@Payload byte[] msg){
         try {
-//            String s = objectMapper.writeValueAsString(msg);
-            System.out.println("来到了这里");
-            String message=new String(msg);
-            log.info("基本消息模型-消费者-监听消费到消息：{} ", message);
+            String message=new String(msg,"utf-8");
+            log.info("基本消息模型-消费者-监听消费到消息：{} ",message);
 
 
         }catch (Exception e){
@@ -44,19 +41,17 @@ public class BasicConsumer {
 
     /**
      * 监听并消费队列中的消息-监听消费处理对象信息-在这里采用单一容器工厂实例即可
-     * @param person
-     */
+     *//*
     @RabbitListener(queues = "${mq.object.info.queue.name}",containerFactory = "singleListenerContainer")
     public void consumeObjectMsg(@Payload Person person){
         try {
-
             log.info("基本消息模型-监听消费处理对象信息-消费者-监听消费到消息：{} ",person);
 
 
         }catch (Exception e){
             log.error("基本消息模型-监听消费处理对象信息-消费者-发生异常：",e.fillInStackTrace());
         }
-    }
+    }*/
 }
 
 

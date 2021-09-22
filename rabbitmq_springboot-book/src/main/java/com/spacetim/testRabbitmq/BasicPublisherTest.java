@@ -1,16 +1,15 @@
-package com.spacetim.rabbitmq_basic;/**
+package com.spacetim.testRabbitmq;/**
  * Created by Administrator on 2019/3/30.
  */
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.spacetim.entity.Person;
 import org.assertj.core.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.AmqpException;
-import org.springframework.amqp.core.*;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageBuilder;
+import org.springframework.amqp.core.MessageDeliveryMode;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.support.converter.AbstractJavaTypeMapper;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -22,9 +21,9 @@ import org.springframework.stereotype.Component;
  * @Date: 2019/3/30 23:15
  **/
 @Component
-public class BasicPublisher {
+public class BasicPublisherTest {
 
-    private static final Logger log= LoggerFactory.getLogger(BasicPublisher.class);
+    private static final Logger log= LoggerFactory.getLogger(BasicPublisherTest.class);
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -43,11 +42,11 @@ public class BasicPublisher {
     public void sendMsg(String message){
         if (!Strings.isNullOrEmpty(message)){
             try {
-//                rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter());
+                rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter());
                 rabbitTemplate.setExchange(env.getProperty("mq.basic.info.exchange.name"));
                 rabbitTemplate.setRoutingKey(env.getProperty("mq.basic.info.routing.key.name"));
 
-                Message msg=MessageBuilder.withBody(message.getBytes())
+                Message msg=MessageBuilder.withBody(message.getBytes("utf-8"))
                         .setDeliveryMode(MessageDeliveryMode.PERSISTENT).build();
 
                 rabbitTemplate.convertAndSend(msg);
@@ -60,9 +59,10 @@ public class BasicPublisher {
     }
 
     /**
-     * 发送对象类型的数据
+     * 发送对象类型的消息
      * @param p
      */
+/*
     public void sendObjectMsg(Person p){
         if (p!=null){
             try {
@@ -70,14 +70,12 @@ public class BasicPublisher {
                 rabbitTemplate.setExchange(env.getProperty("mq.object.info.exchange.name"));
                 rabbitTemplate.setRoutingKey(env.getProperty("mq.object.info.routing.key.name"));
 
-
-                // 可以使用MessageBuilder来进行消息的序列化设置
                 rabbitTemplate.convertAndSend(p, new MessagePostProcessor() {
                     @Override
                     public Message postProcessMessage(Message message) throws AmqpException {
                         MessageProperties messageProperties=message.getMessageProperties();
                         messageProperties.setDeliveryMode(MessageDeliveryMode.PERSISTENT);
-                        messageProperties.setHeader(AbstractJavaTypeMapper.DEFAULT_CONTENT_CLASSID_FIELD_NAME, Person.class);
+                        messageProperties.setHeader(AbstractJavaTypeMapper.DEFAULT_CONTENT_CLASSID_FIELD_NAME,Person.class);
 
                         return message;
                     }
@@ -89,6 +87,7 @@ public class BasicPublisher {
             }
         }
     }
+*/
 }
 
 
